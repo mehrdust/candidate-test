@@ -1,0 +1,26 @@
+{
+  "name": "candidate-test",
+  "description": "> Complete as many of the tasks listed below in the time frame specified.  #####  You do not need to complete all the tasks to be successful. Here is is what we're looking for (in this order):",
+  "main": "index.js",
+  "authors": [
+    "Rayan Samimi <rayan.samimi@mehrdust.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/mehrdust/candidate-test",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-ui-router": "^0.2.18",
+    "angular-material": "^1.0.8",
+    "angular-aria": "^1.5.5",
+    "angular-animate": "^1.5.5"
+  }
+}
