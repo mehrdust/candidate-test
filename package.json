@@ -1,7 +1,7 @@
 {
   "name": "candidate-test",
   "version": "1.0.0",
-  "description": "> Complete as many of the tasks listed below in the time frame specified.  #####  You do not need to complete all the tasks to be successful. Here is is what we're looking for (in this order):",
+  "description": "simple test application built by MEAN stack.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,5 +26,9 @@
     "gulp-notify": "^2.2.0",
     "gulp-stylus": "^2.3.1",
     "main-bower-files": "^2.13.0"
+  },
+  "devDependencies": {
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-auto-reload": "^0.1.0"
   }
 }
