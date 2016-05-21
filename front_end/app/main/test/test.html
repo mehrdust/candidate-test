@@ -3,3 +3,112 @@
         <h1 class="page-header">Test Page</h1>
     </div>
 </div>
+<div class="row">
+	<div class="col-sm-12">
+		<div>
+			<button class="btn btn-primary" ng-click="vm.addNewTest()">
+				Add Test
+			</button>
+		</div><hr />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Drive Test Data Table
+			</div>
+			<div class="panel-body">
+				<div class="dataTable_wrapper">
+					<table class="table table-triped table-bordered table-hover" id="dataTables_test">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Employee</th>
+								<th>Test</th>
+								<th>Result</th>
+								<th>Comment</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody class="tr" ng-repeat="test in vm.tests">
+							<td>{{$index+1}}</td>
+							<td>{{test.employee}}</td>
+							<td>{{test.name}}</td>
+							<td>{{test.result}}</td>
+							<td>{{test.comment}}</td>
+							<td>
+								<button class="btn btn-danger" ng-click="$parent.vm.removeConfirmTest($index)">Remove</button>
+								<botton class="btn btn-warning" ng-click="$parent.vm.editTest($index)">Edit</botton>
+							</td>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="frmTest" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Test Form</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEmployee" class="col-sm-2 control-label">Employee</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="vm.tests[vm.selectedTest].employee" placeholder="Enter Employee name" id="inputEmployee">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputTest" class="col-sm-2 control-label">Test Type</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="vm.tests[vm.selectedTest].name" placeholder="Enter Test Type" id="inputTest">
+						</div>
+					</div>
+					<fieldset class="form-group">
+					    <label class="col-sm-2 control-label" for="testResult">Result</label>
+					    <div class="col-sm-10">
+						    <select class="form-control" id="testResult">
+						      	<option>Select Test Result</option>
+						      	<option value="pass">Pass</option>
+						      	<option value="fail">Fail</option>
+						    </select>
+					    </div>
+				  	</fieldset>
+				  	<fieldset class="form-group">
+				  		<label for="inputComment" class="col-sm-2 control-label">Comment</label>
+				  		<div class="col-sm-10">
+				  			<input type="text" class="form-control" ng-model="vm.tests[vm.selectedTest].comment" placeholder="Enter Comment" id="inputComment">
+				  		</div>
+				  	</fieldset>
+				  	<div class="form-group">
+                    	<div class="col-sm-offset-2 col-sm-10">
+                      		<button type="submit" class="btn btn-primary">Submit</button>
+                    	</div>
+                  	</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+	          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Delete Test
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <strong>{{vm.tests[vm.selectedTest].name}}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok" ng-click="vm.removeTest()">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
