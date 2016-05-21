@@ -6,8 +6,8 @@
     	.controller('EmployeeController', EmployeeController);
 
 	// @ngInject
-	EmployeeController.$inject = ['DialogBox'];
-	function EmployeeController(DialogBox) {
+	EmployeeController.$inject = [];
+	function EmployeeController() {
 		var vm = this;
 		vm.selectedEmployee = -1;
 		vm.addNewEmployee = addNewEmployee;
