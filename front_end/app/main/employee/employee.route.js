@@ -9,7 +9,7 @@
 	function config($stateProvider) {
 		$stateProvider
 			.state('app.employee', {
-				url: '/employee',
+				url: 'employee',
 				views: {
 					'content@app': {
 						templateUrl: 'app/main/employee/employee.html',

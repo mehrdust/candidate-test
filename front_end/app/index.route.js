@@ -10,12 +10,12 @@
     	function routeConfig($stateProvider, $urlRouterProvider, $locationProvider)
     	{
     		$locationProvider.html5Mode(true);
-    		$urlRouterProvider.otherwise('/home');
+    		$urlRouterProvider.otherwise('/');
 
     		// state definitions
     		$stateProvider
     			.state('app', {
-    				url: '/home',
+    				url: '/',
     				views: {
     					'main': {
     						templateUrl: 'app/core/layouts/content.html',
