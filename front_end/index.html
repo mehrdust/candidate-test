@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<title>Candidate Test</title>
 	<base href="/">
 	<!-- bower:css -->
@@ -11,24 +12,29 @@
 	<!-- endinject -->
 </head>
 <body ng-app="myApp">
+    <!-- Static navbar -->
 	<div ui-view="main"></div>
 	<!-- bower:js -->
-  	<script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
   	<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
   	<!-- endinject -->
   	<!-- inject:js -->
-  	<script src="/app/main/employee/employee.module.js"></script>
-  	<script src="/app/main/employee/employee.route.js"></script>
-  	<script src="/app/main/employee/employee.controller.js"></script>
   	<script src="/app/main/test/test.module.js"></script>
   	<script src="/app/main/test/test.route.js"></script>
   	<script src="/app/main/test/test.controller.js"></script>
+  	<script src="/app/main/employee/employee.module.js"></script>
+  	<script src="/app/main/employee/employee.route.js"></script>
+  	<script src="/app/main/employee/employee.controller.js"></script>
   	<script src="/app/main/company/company.module.js"></script>
   	<script src="/app/main/company/company.route.js"></script>
   	<script src="/app/main/company/company.controller.js"></script>
+  	<script src="/app/core/core.module.js"></script>
+  	<script src="/app/core/services/dialogbox.service.js"></script>
   	<script src="/app/index.module.js"></script>
   	<script src="/app/main/main.controller.js"></script>
-  	<script src="/app/core/core.module.js"></script>
   	<script src="/app/index.route.js"></script>
   	<script src="/app/index.controller.js"></script>
   	<!-- endinject -->

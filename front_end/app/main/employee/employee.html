@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+        <h1 class="page-header">Employee Page</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+		<div>
+			<button class="btn btn-primary" ng-click='vm.addNewEmployee()'><i class="fa fa-plus-circle"></i>&nbsp;Add Employee</button>
+		</div>
+		<hr />
+    	<div class="panel panel-default">
+            <div class="panel-heading">
+                Employee Data Table
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables_employee">
+                        <thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Number</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="employee in vm.employees">
+								<td>{{$index}}</td>
+								<td>{{employee.name}}</td>
+								<td>{{employee.email}}</td>
+								<td>{{employee.number}}</td>
+								<td>
+									<button class="btn btn-danger" ng-click="$parent.vm.removeConfirmEmployee($index)">Remove</button>
+									<button class="btn btn-warning" ng-click="$parent.vm.editEmployee($index)">Edit</button>
+								</td>
+							</tr>
+						</tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="frmEmployee" role="dialog">
+    <div class="modal-dialog">
+      	<!-- Modal content-->
+      	<div class="modal-content">
+	        <div class="modal-header">
+	          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          	<h4 class="modal-title">Employee Form</h4>
+	        </div>
+	        <div class="modal-body">
+	          	<form class="form-horizontal" role="form">
+                  	<div class="form-group">
+                    	<label  class="col-sm-2 control-label" for="inputName">Name</label>
+                    	<div class="col-sm-10">
+                        	<input type="text" class="form-control" ng-model="vm.employees[vm.selectedEmployee].name" id="inputName" placeholder="Name of employee"/>
+                    	</div>
+                  	</div>
+                  	<div class="form-group">
+                    	<label class="col-sm-2 control-label" for="inputCompany" >Company</label>
+                    	<div class="col-sm-10">
+                        	<input type="text" class="form-control" ng-model="vm.employees[vm.selectedEmployee].company" id="inputCompany" placeholder="Select Company"/>
+                    	</div>
+                  	</div>
+                  	<div class="form-group">
+                    	<label class="col-sm-2 control-label" for="inputEmail" >Email</label>
+                    	<div class="col-sm-10">
+                        	<input type="email" class="form-control" ng-model="vm.employees[vm.selectedEmployee].email" id="inputEmail" placeholder="Email Address"/>
+                    	</div>
+                  	</div>
+                  	<div class="form-group">
+                    	<label class="col-sm-2 control-label" for="inputPhone" >Phone</label>
+                    	<div class="col-sm-10">
+                        	<input type="text" class="form-control" ng-model="vm.employees[vm.selectedEmployee].phone" id="inputPhone" placeholder="Phone Number"/>
+                    	</div>
+                  	</div>
+                  	<div class="form-group">
+                    	<div class="col-sm-offset-2 col-sm-10">
+                      		<button type="submit" class="btn btn-primary">Submit</button>
+                    	</div>
+                  	</div>
+                </form>
+	        </div>
+	        <div class="modal-footer">
+	          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+      	</div>
+    </div>
+</div>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Delete Employee
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <strong>{{vm.employees[vm.selectedEmployee].name}}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok" ng-click="vm.removeEmployee()">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
