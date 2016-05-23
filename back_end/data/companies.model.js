@@ -34,3 +34,4 @@ var companySchema = new mongoose.Schema({
 
 mongoose.model('Company', companySchema);
 mongoose.model('Employee', employeeSchema);
+mongoose.model('Test', testSchema);

@@ -3,7 +3,7 @@ var router  = express.Router();
 
 var ctrlCompanies 	= require('../controllers/companies.controllers.js');
 var ctrlEmployees 	= require('../controllers/employees.controllers.js');
-// var ctrlTests 		= require('../controllers/tests.controllers.js');
+var ctrlTests 		= require('../controllers/tests.controllers.js');
 
 // Company Routes
 	router
@@ -49,5 +49,24 @@ var ctrlEmployees 	= require('../controllers/employees.controllers.js');
 
 // Tests Routes
 // TODO
+	router
+		.route('/companies/:compId/employees/:empId/tests')
+		.post(ctrlTests.testAddNew);
+
+	router
+		.route('/companies/:compId/employees/:empId/tests')
+		.get(ctrlTests.testGetAll);
+
+	router
+		.route('/companies/:compId/employees/:empId/tests/:testId')
+		.get(ctrlTests.testGetOne);
+
+	router
+		.route('/companies/:compId/employees/:empId/tests/:testId')
+		.put(ctrlTests.testUpdate);
+
+	router
+		.route('/companies/:compId/employees/:empId/tests/:testId')
+		.delete(ctrlTests.testDelete);
 
 module.exports = router;

@@ -6,9 +6,7 @@ var bodyParser = require('body-parser');
 
 // API routes
 var routes = require('./back_end/routes');
-// routes.get('/', function(req, res) {
-// 		res.json({message: 'base URL!'});
-// 	});
+
 // Set the designated port
 app.set('port', 3000);
 
