@@ -6,16 +6,15 @@ var bodyParser = require('body-parser');
 
 // API routes
 var routes = require('./back_end/routes');
-// var router  = express.Router();
-// router.get('/', function(req, res) {
-// 		res.json({message: 'Fuck you, go get some rest for fuck\'s sake!!'});
+// routes.get('/', function(req, res) {
+// 		res.json({message: 'base URL!'});
 // 	});
 // Set the designated port
 app.set('port', 3000);
 
 // Middleware to console log every request for transparency
 app.use(function(req, req, next) {
-	console.log(req.method, req.url);
+	console.log("Method: " + req.req.method, '| URL:' + req.req.url);
 	next();
 });
 

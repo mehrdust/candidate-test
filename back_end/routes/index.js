@@ -2,12 +2,9 @@ var express = require('express');
 var router  = express.Router();
 
 var ctrlCompanies 	= require('../controllers/companies.controllers.js');
-// var ctrlEmployees 	= require('../controllers/employees.controllers.js');
+var ctrlEmployees 	= require('../controllers/employees.controllers.js');
 // var ctrlTests 		= require('../controllers/tests.controllers.js');
 
-	router.get('/', function(req, res) {
-		res.json({message: 'Fuck you, go get some rest for fuck\'s sake!!'});
-	});
 // Company Routes
 	router
 		.route('/companies')
@@ -30,7 +27,25 @@ var ctrlCompanies 	= require('../controllers/companies.controllers.js');
 		.delete(ctrlCompanies.companyDelete);
 
 // Employees Routes
-// TODO
+	router
+		.route('/companies/:compId/employees')
+		.post(ctrlEmployees.employeeAddNew);
+
+	router
+		.route('/companies/:compId/employees')
+		.get(ctrlEmployees.employeesGetAll);
+
+	router
+		.route('/companies/:compId/employees/:empId')
+		.get(ctrlEmployees.employeesGetOne);
+
+	router
+		.route('/companies/:compId/employees/:empId')
+		.put(ctrlEmployees.employeeUpdate);
+
+	router
+		.route('/companies/:compId/employees/:empId')
+		.delete(ctrlEmployees.employeeDelete);
 
 // Tests Routes
 // TODO
