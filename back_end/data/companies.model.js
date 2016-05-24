@@ -29,6 +29,7 @@ var companySchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	description: String,
 	employees: [employeeSchema]
 });
 

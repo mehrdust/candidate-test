@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mehrdust/candidate-test#readme",
   "dependencies": {
+    "angular-html5-proxy": "^1.0.2",
     "body-parser": "^1.15.1",
     "event-stream": "^3.3.2",
     "express": "^4.13.4",

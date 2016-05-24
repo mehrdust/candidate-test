@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var proxy = require('angular-html5-proxy')
 
 // API routes
 var routes = require('./back_end/routes');
@@ -17,10 +18,15 @@ app.use(function(req, req, next) {
 });
 
 // Set static directory before defining routes
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'front_end')));
+// app.use(proxy({
+// 	target: 'http://0.0.0.0:' + app.get('port')
+// }));
 
 // Enable parsing of posted forms
-app.use(bodyParser.urlencoded({extended: false}));
+console.log(bodyParser.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Add some routing
 app.use('/api', routes);

@@ -4,8 +4,6 @@ var Company = mongoose.model('Company');
 // Get list of all companies with URL: <base URL>/api/companies
 module.exports.companiesGetAll = function(req, res) {
 	console.log('Get all companies');
-	console.log(req.query);
-
 	Company
 		.find(function(err, companies) {
 			if (err) {
@@ -41,9 +39,11 @@ module.exports.companiesGetOne = function(req, res) {
 
 // Add a new company with URL: <base URL>/api/companies
 module.exports.companyAddNew = function(req, res) {
-	console.log("POST new company");
+	console.log("POST Added new company");
+	console.log(req.body);
 	var company = new Company();
 	company.name = req.body.name;
+	company.description = req.body.description;
 	company.save(function(err) {
 		if (err) {
 			res
@@ -62,6 +62,7 @@ module.exports.companyAddNew = function(req, res) {
 module.exports.companyUpdate = function(req, res) {
 	var id = req.params.compId;
 	console.log("Updating company: ", id);
+	console.log(req.query);
 
 	Company
 		.findById(id, function(err, company) {
@@ -71,8 +72,12 @@ module.exports.companyUpdate = function(req, res) {
 					.json(err);
 			}
 			else {
-				company.name = req.body.name;
-
+				if (req.body.name) {
+					company.name = req.body.name;
+				}
+				if (req.body.description) {
+					company.description = req.body.description;
+				}
 				// Update the retrieved company
 				company.save(function(err) {
 					if (err) {
