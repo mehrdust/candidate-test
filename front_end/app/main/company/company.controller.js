@@ -16,6 +16,7 @@
 		vm.modalAddNewCompany = modalAddNewCompany;
 		vm.deleteCompany = vm.deleteCompany;
 		vm.companies = [];
+		vm.error = null;
 
 		// INITIALIZE THE CONTROLLER
 		getCompanies();
@@ -32,13 +33,6 @@
 			vm.selectedCompany = index;
 			$('#frmCompany').modal();
 
-		}
-		function removeCompany() {
-			if (vm.selectedCompany > -1) {
-				vm.companies.splice(vm.selectedCompany, 1);
-				vm.selectedCompany = -1;
-			}
-			$('#confirm-delete').modal('toggle');
 		}
 		function getCompanies() {
 			CompanyApi.getAllCompanies().then(function(data, status) {
@@ -57,21 +51,42 @@
 		function manageCompany() {
 			// Update Company
 			if (vm.selectedCompany > -1) {
-
+				CompanyApi.updateCompany(vm.companies[vm.selectedCompany]._id, {
+					name		: vm.companies[vm.selectedCompany].name,
+					description : vm.companies[vm.selectedCompany].description
+				}).then(fnSuccess, fnError);
 			}
 			// Add new company
 			else {
 				CompanyApi.addNewCompany({
 					name: $('#inputName').val(),
 					description: $('#inputDescription').val()
-				}).then(function(){
-					$('#frmCompany').modal('toggle');
-					getCompanies();
-				});
+				}).then(fnSuccess, fnError);
 			}
 		}
-		function deleteCompany() {
-			console.log("updateCompany");
+		function removeCompany() {
+			if (vm.selectedCompany > -1) {
+				CompanyApi.deleteCompany(vm.companies[vm.selectedCompany]._id)
+					.success(function() {
+						$('#confirm-delete').modal('toggle');
+						vm.selectedCompany = -1;
+						vm.error = null;
+						getCompanies();
+					})
+					.error(function(err) {
+						vm.error = err.message;
+					}
+				);
+			}
 		}
+		// Promises
+		function fnSuccess(data) {
+			$('#frmCompany').modal('toggle');
+			getCompanies();
+			vm.error = null;
+		}
+		function fnError(data) {
+			vm.error = data.data.message;
+		};
 	}
 })();

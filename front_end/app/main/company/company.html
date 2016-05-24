@@ -52,6 +52,7 @@
 	          	<h4 class="modal-title">Company Form</h4>
 	        </div>
 	        <div class="modal-body">
+	        	<div ng-show="vm.error" class="alert alert-danger" role="alert">{{vm.error}}</div>
 	          	<form class="form-horizontal" role="form" ng-submit="vm.manageCompany()">
                   	<div class="form-group">
                     	<label  class="col-sm-2 control-label" for="inputName">Name</label>
@@ -86,6 +87,7 @@
                 Delete Company
             </div>
             <div class="modal-body">
+	            <div ng-show="vm.error" class="alert alert-danger" role="alert">{{vm.error}}</div>
                 Are you sure you want to delete <strong>{{vm.companies[vm.selectedCompany].name}}</strong>?
             </div>
             <div class="modal-footer">

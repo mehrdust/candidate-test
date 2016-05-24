@@ -62,7 +62,6 @@ module.exports.companyAddNew = function(req, res) {
 module.exports.companyUpdate = function(req, res) {
 	var id = req.params.compId;
 	console.log("Updating company: ", id);
-	console.log(req.query);
 
 	Company
 		.findById(id, function(err, company) {
@@ -72,10 +71,10 @@ module.exports.companyUpdate = function(req, res) {
 					.json(err);
 			}
 			else {
-				if (req.body.name) {
+				if (req.body.name || req.body.name == "") {
 					company.name = req.body.name;
 				}
-				if (req.body.description) {
+				if (req.body.description || req.body.description == "") {
 					company.description = req.body.description;
 				}
 				// Update the retrieved company
