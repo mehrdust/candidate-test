@@ -7,6 +7,6 @@
     $ bower install
 
 ### Run application
-    $ gulp connect
+    $ node app.js
 
 
