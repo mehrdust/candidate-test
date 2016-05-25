@@ -5,8 +5,8 @@
     	.module('app.company')
     	.controller('CompanyController', CompanyController);
 
-	CompanyController.$inject = ['CompanyApi', 'CompanyDetails', '$state'];
-	function CompanyController(CompanyApi, CompanyDetails, $state) {
+	CompanyController.$inject = ['$rootScope', 'CompanyApi', 'CompanyDetails', '$state'];
+	function CompanyController($rootScope, CompanyApi, CompanyDetails, $state) {
 		var vm = this;
 		vm.selectedCompany = -1;
 		vm.removeConfirmCompany = removeConfirmCompany;
@@ -19,6 +19,7 @@
 		vm.error = null;
 
 		// INITIALIZE THE CONTROLLER
+		$rootScope.$broadcast('state-changed', { state: $state.current.name});
 		getCompanies();
 
 		function modalAddNewCompany() {
@@ -80,7 +81,6 @@
 			}
 		}
 		function getEmployees(id) {
-			console.log(id);
 			CompanyApi.getOneCompany(id)
 				.success(function(data) {
 					CompanyDetails.setCompanyDetails(data);

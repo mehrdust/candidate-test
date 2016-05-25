@@ -116,6 +116,7 @@ module.exports.testUpdate = function(req, res) {
 	var compId = req.params.compId;
 	var empId = req.params.empId;
 	var testId = req.params.testId;
+	console.log(req.body);
 	Company
 		.findById(compId)
 		.select('employees')
@@ -134,34 +135,25 @@ module.exports.testUpdate = function(req, res) {
 						.json("Employee " + empId + " has no such test: " + testId);
 				}
 				else {
-					if (req.body.result) {
+					if (req.body.result || req.body.result == "" ) {
 						test.result = req.body.result;
 					}
-					if (req.body.name) {
+					if (req.body.name || req.body.name == "" ) {
 						test.name = req.body.name;
 					}
-					if (req.body.comment) {
+					if (req.body.comment || req.body.comment == "" ) {
 						test.comment = req.body.comment;
 					}
-					employee.save('tests', function(err, test) {
+					company.save('employees', function(err, employee) {
 						if (err) {
 							res
 								.status(500)
 								.json(err);
 						}
 						else {
-							company.save('employees', function(err, employee) {
-								if (err) {
-									res
-										.status(500)
-										.json(err);
-								}
-								else {
-									res
-										.status(200)
-										.json("test id: " + testId + ' is updated.');
-								}
-							});
+							res
+								.status(200)
+								.json("test id: " + testId + ' is updated.');
 						}
 					});
 				}

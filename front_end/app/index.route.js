@@ -11,7 +11,6 @@
     	{
     		$locationProvider.html5Mode(true);
     		$urlRouterProvider.otherwise('/');
-
     		// state definitions
     		$stateProvider
     			.state('app', {
@@ -19,7 +18,7 @@
     				views: {
     					'main': {
     						templateUrl: 'app/core/layouts/content.html',
-    						// controller: 'MainController as vm'
+    						controller: 'MainController as vm'
     					}
     				}
     			});

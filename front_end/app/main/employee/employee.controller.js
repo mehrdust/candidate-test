@@ -6,8 +6,8 @@
     	.controller('EmployeeController', EmployeeController);
 
 	// @ngInject
-	EmployeeController.$inject = ['$http', '$state', 'CompanyDetails', 'EmployeeApi'];
-	function EmployeeController($http, $state, CompanyDetails, EmployeeApi) {
+	EmployeeController.$inject = ['$rootScope', '$http', '$state', 'CompanyDetails', 'EmployeeApi'];
+	function EmployeeController($rootScope, $http, $state, CompanyDetails, EmployeeApi) {
 		var vm = this;
 		vm.selectedEmployee = -1;
 		vm.modalAddNewEmployee = modalAddNewEmployee;
@@ -22,6 +22,7 @@
 		activate();
 
 		function activate() {
+			$rootScope.$broadcast('state-changed', { state: $state.current.name});
 			CompanyDetails.getCompanyDetails()
 				.then(function(data) {
 					vm.companyDetails = data;
@@ -85,8 +86,16 @@
 				vm.selectedEmployee = -1;
 			}
 		}
-		function getTests(id) {
-			// EmployeeApi.getAll
+		function getTests(empId) {
+			EmployeeApi.getOneEmployee(vm.companyDetails._id, empId)
+				.success(function(data) {
+					CompanyDetails.setSelectedEmployee(data);
+					$state.go('app.test');
+				})
+				.error(function(data) {
+					alert(data);
+				}
+			);
 		}
 		// Promises
 		function fnSuccess() {

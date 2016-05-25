@@ -13,5 +13,6 @@
         // clean up company details cookie
         var det = {};
         CompanyDetails.setCompanyDetails(det);
+        CompanyDetails.setSelectedEmployee(det);
     }
 })();
