@@ -9,13 +9,13 @@
             </button>
             <a class="navbar-brand" ui-sref="app">Driver Test</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse" ng-if="vm.loggedIn">
             <ul class="nav navbar-nav">
                 <li><a ui-sref="app.company">Company</a></li>
                 <li><a ui-sref="app.employee">Employee</a></li>
                 <li><a ui-sref="app.test">Test</a></li>
             </ul>
-            <div class="pull-right" ng-show="vm.loggedIn">
+            <div class="pull-right" >
                 <button type="submit" ng-click="vm.logOut()" class="btn btn-success">Logout</button>
             </div>
         </div>
