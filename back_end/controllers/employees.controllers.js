@@ -5,6 +5,7 @@ var Employee = mongoose.model('Employee');
 // Add a new employee with URL: <base URL>/api/companies/<_id>/employees/
 module.exports.employeeAddNew = function(req, res) {
 	console.log("POST new employee");
+	console.log(req.body);
 
 	var compId = req.params.compId;
 	// building the employee object
@@ -125,13 +126,13 @@ module.exports.employeeUpdate = function(req, res) {
 					.json('No employee with Id: ' + empId + ' was found for company: ' + compId);
 				return;
 			}
-			if (req.body.name) {
+			if (req.body.name || req.body.name == "") {
 				employee.name = req.body.name;
 			}
-			if (req.body.email) {
+			if (req.body.email || req.body.email == "") {
 				employee.email = req.body.email;
 			}
-			if (req.body.phone) {
+			if (req.body.phone || req.body.phone == "") {
 				employee.phone = req.body.phone;
 			}
 			employee.save(function(err) {

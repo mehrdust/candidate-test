@@ -5,8 +5,8 @@
     	.module('app.company')
     	.controller('CompanyController', CompanyController);
 
-	CompanyController.$inject = ['CompanyApi'];
-	function CompanyController(CompanyApi) {
+	CompanyController.$inject = ['CompanyApi', 'CompanyDetails', '$state'];
+	function CompanyController(CompanyApi, CompanyDetails, $state) {
 		var vm = this;
 		vm.selectedCompany = -1;
 		vm.removeConfirmCompany = removeConfirmCompany;
@@ -14,7 +14,7 @@
 		vm.removeCompany = removeCompany;
 		vm.manageCompany = manageCompany;
 		vm.modalAddNewCompany = modalAddNewCompany;
-		vm.deleteCompany = vm.deleteCompany;
+		vm.getEmployees = getEmployees;
 		vm.companies = [];
 		vm.error = null;
 
@@ -78,6 +78,18 @@
 					}
 				);
 			}
+		}
+		function getEmployees(id) {
+			console.log(id);
+			CompanyApi.getOneCompany(id)
+				.success(function(data) {
+					CompanyDetails.setCompanyDetails(data);
+					$state.go('app.employee');
+				})
+				.error(function(data) {
+					alert(data);
+				}
+			);
 		}
 		// Promises
 		function fnSuccess(data) {

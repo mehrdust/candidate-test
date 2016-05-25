@@ -6,32 +6,33 @@
     	.controller('EmployeeController', EmployeeController);
 
 	// @ngInject
-	EmployeeController.$inject = [];
-	function EmployeeController() {
+	EmployeeController.$inject = ['$http', '$state', 'CompanyDetails', 'EmployeeApi'];
+	function EmployeeController($http, $state, CompanyDetails, EmployeeApi) {
 		var vm = this;
 		vm.selectedEmployee = -1;
-		vm.addNewEmployee = addNewEmployee;
+		vm.modalAddNewEmployee = modalAddNewEmployee;
+		vm.manageEmployees = manageEmployees;
 		vm.removeEmployee = removeEmployee;
 		vm.removeConfirmEmployee = removeConfirmEmployee;
+		vm.getTests = getTests;
 		vm.editEmployee = editEmployee;
-		vm.employees = [
-			{
-				name: 'John',
-				email: 'john@mail.ca',
-				phone: '656334343'
-			},
-			{
-				name: 'Simon',
-				email: 'simpm@name.ca',
-				phone: '4324343432'
-			},
-			{
-				name: 'Tylor',
-				email: 'tylor@name.ca',
-				phone: '43254364436'
-			}
-		]
-		function addNewEmployee() {
+		vm.companyDetails = {};
+		vm.error = null;
+		// Activate controller
+		activate();
+
+		function activate() {
+			CompanyDetails.getCompanyDetails()
+				.then(function(data) {
+					vm.companyDetails = data;
+					vm.employees = data.employees;
+				},
+				function() {
+					vm.companyDetails = {};
+				}
+			);
+		}
+		function modalAddNewEmployee() {
 			vm.selectedEmployee = -1;
 			$('#frmEmployee').modal();
 		}
@@ -40,17 +41,60 @@
 			$('#confirm-delete').modal();
 			// vm.employees.splice(index, 1);
 		}
-		function removeEmployee() {
-			if (vm.selectedEmployee > -1) {
-				vm.employees.splice(vm.selectedEmployee, 1);
-				vm.selectedEmployee = -1;
-			}
-			$('#confirm-delete').modal('toggle');
-		}
 		function editEmployee(index) {
 			vm.selectedEmployee = index;
 			$('#frmEmployee').modal();
 		}
-
+		function manageEmployees() {
+			var data = {
+				name : $('#inputName').val(),
+				email: $('#inputEmail').val(),
+				phone: $('#inputPhone').val()
+			};
+			// Update Employee
+			if (vm.selectedEmployee > -1) {
+				if (vm.companyDetails._id) {
+					EmployeeApi.updateEmployee(
+						vm.companyDetails._id,
+						vm.employees[vm.selectedEmployee]._id,
+					  	data
+				  	).then(fnSuccess, fnError);
+				}
+			}
+			// Add new Employee
+			else {
+				if (vm.companyDetails._id) {
+					EmployeeApi.addNewEmployee(vm.companyDetails._id, data)
+						.then(fnSuccess, fnError);
+				}
+			}
+		}
+		function removeEmployee() {
+			if (vm.selectedEmployee > -1 && vm.companyDetails._id) {
+				EmployeeApi.deleteEmployee(
+					vm.companyDetails._id,
+					vm.employees[vm.selectedEmployee]._id
+				)
+				.success(function() {
+					$('#confirm-delete').modal('toggle');
+					vm.employees.splice(vm.selectedEmployee,1);
+				})
+				.error(function(err) {
+					vm.error = error.message;
+				})
+				vm.selectedEmployee = -1;
+			}
+		}
+		function getTests(id) {
+			// EmployeeApi.getAll
+		}
+		// Promises
+		function fnSuccess() {
+			$('#frmEmployee').modal('toggle');
+			$state.go('app.company');
+		}
+		function fnError(err) {
+			vm.error = err.data.message;
+		}
 	}
 })();
