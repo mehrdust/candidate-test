@@ -5,8 +5,8 @@
     	.module('app.company')
     	.controller('CompanyController', CompanyController);
 
-	CompanyController.$inject = ['$rootScope', 'CompanyApi', 'CompanyDetails', '$state'];
-	function CompanyController($rootScope, CompanyApi, CompanyDetails, $state) {
+	CompanyController.$inject = ['$rootScope', 'CompanyApi', 'CompanyDetails', '$state', 'authentication'];
+	function CompanyController($rootScope, CompanyApi, CompanyDetails, $state, authentication) {
 		var vm = this;
 		vm.selectedCompany = -1;
 		vm.removeConfirmCompany = removeConfirmCompany;
@@ -19,9 +19,10 @@
 		vm.error = null;
 
 		// INITIALIZE THE CONTROLLER
-		$rootScope.$broadcast('state-changed', { state: $state.current.name});
 		getCompanies();
-
+		if (!authentication.isLoggedIn()) {
+			$state.go('app.login');
+		}
 		function modalAddNewCompany() {
 			vm.selectedCompany = -1;
 			$('#frmCompany').modal();

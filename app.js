@@ -3,7 +3,14 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var proxy = require('angular-html5-proxy')
+var proxy = require('angular-html5-proxy');
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+
+// [SH] Bring in the data model
+require('./back_end/data/db');
+// [SH] Bring in the Passport config after model is defined
+require('./back_end/config/passport');
 
 // API routes
 var routes = require('./back_end/routes');
@@ -20,9 +27,23 @@ app.use(function(req, req, next) {
 // Set static directory before defining routes
 app.use(express.static(path.join(__dirname, 'front_end')));
 
+// Initialise Passport before using the route middleware
+app.use(passport.initialize());
+
 // Enable parsing of posted forms
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
+// // error handlers
+
+// // [SH] Catch unauthorised errors
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        res.status(401);
+        res.json({"message" : err.name + ": " + err.message});
+    }
+});
 
 // Add some routing
 app.use('/api', routes);

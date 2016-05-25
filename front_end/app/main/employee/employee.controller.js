@@ -6,8 +6,8 @@
     	.controller('EmployeeController', EmployeeController);
 
 	// @ngInject
-	EmployeeController.$inject = ['$rootScope', '$http', '$state', 'CompanyDetails', 'EmployeeApi'];
-	function EmployeeController($rootScope, $http, $state, CompanyDetails, EmployeeApi) {
+	EmployeeController.$inject = ['$rootScope', '$http', '$state', 'CompanyDetails', 'EmployeeApi', 'authentication'];
+	function EmployeeController($rootScope, $http, $state, CompanyDetails, EmployeeApi, authentication) {
 		var vm = this;
 		vm.selectedEmployee = -1;
 		vm.modalAddNewEmployee = modalAddNewEmployee;
@@ -22,7 +22,9 @@
 		activate();
 
 		function activate() {
-			$rootScope.$broadcast('state-changed', { state: $state.current.name});
+			if (!authentication.isLoggedIn()) {
+				$state.go('app.login');
+			}
 			CompanyDetails.getCompanyDetails()
 				.then(function(data) {
 					vm.companyDetails = data;

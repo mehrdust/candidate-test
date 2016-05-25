@@ -5,8 +5,8 @@
     	.module('app.test')
     	.controller('TestController', TestController);
 
-	TestController.$inject = ['$rootScope', '$http', '$state', 'CompanyDetails', 'TestApi'];
-	function TestController($rootScope, $http, $state, CompanyDetails, TestApi) {
+	TestController.$inject = ['$rootScope', '$http', '$state', 'CompanyDetails', 'TestApi', 'authentication'];
+	function TestController($rootScope, $http, $state, CompanyDetails, TestApi, authentication) {
 		var vm = this;
 		vm.selectedTest = -1;
 		vm.tests = [];
@@ -21,7 +21,9 @@
 		activate();
 
 		function activate() {
-			$rootScope.$broadcast('state-changed', { state: $state.current.name});
+			if (!authentication.isLoggedIn()) {
+				$state.go('app.login');
+			}
 			CompanyDetails.getSelectedEmployee()
 				.then(function(data) {
 					vm.companyDetails = data.companyDetails;

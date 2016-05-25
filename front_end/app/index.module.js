@@ -8,6 +8,9 @@
     	// Application core
     	'app.core',
 
+        // Authentication module
+        'app.auth',
+
     	// Company module
     	'app.company',
 

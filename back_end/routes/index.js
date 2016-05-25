@@ -1,9 +1,19 @@
 var express = require('express');
 var router  = express.Router();
+var jwt 	= require('express-jwt');
+var auth 	= jwt({
+	secret: 'password',
+	userProperty: 'payload'
+});
 
 var ctrlCompanies 	= require('../controllers/companies.controllers.js');
 var ctrlEmployees 	= require('../controllers/employees.controllers.js');
 var ctrlTests 		= require('../controllers/tests.controllers.js');
+var ctrlAuth 		= require('../controllers/authentication');
+
+// Authentication
+	router.post('/register', ctrlAuth.register);
+	router.post('/login', ctrlAuth.login);
 
 // Company Routes
 	router

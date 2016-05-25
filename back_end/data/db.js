@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var dburl = 'mongodb://localhost:27017/emp_test';
-var retry = null;
+
 mongoose.connect(dburl);
 
 // Connection Events
@@ -25,3 +25,4 @@ function gracefulShutdown(msg, callback) {
 
 // Application SCHEMAS & MODELS
 require('./companies.model');
+require('./users.model');
